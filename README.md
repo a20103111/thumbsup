@@ -1,6 +1,8 @@
 # thumbsup
 班主任点赞系统
 个人项目
+前端JSP，JQuery
+后台：Spring SpringMvc Mybatis
 
 学生端:
 学生登录，并且对班主任进行评分和留言
