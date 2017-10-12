@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thumbsup.mapper.TClassMapper" >
+  <resultMap id="BaseResultMap" type="com.thumbsup.dto.TClass" >
+    <id column="class_id" property="classId" jdbcType="INTEGER" />
+    <result column="class_name" property="className" jdbcType="VARCHAR" />
+    <result column="class_createtime" property="classCreatetime" jdbcType="VARCHAR" />
+    <result column="class_endtime" property="classEndtime" jdbcType="VARCHAR" />
+    <result column="class_numbers" property="classNumbers" jdbcType="INTEGER" />
+    <result column="class_type" property="classType" jdbcType="INTEGER" />
+    <result column="class_fromteacher" property="classFromteacher" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    class_id, class_name, class_createtime, class_endtime, class_numbers, class_type, 
+    class_fromteacher
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.thumbsup.dto.TClassExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_class
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_class
+    where class_id = #{classId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_class
+    where class_id = #{classId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.thumbsup.dto.TClassExample" >
+    delete from t_class
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.thumbsup.dto.TClass" >
+    insert into t_class (class_id, class_name, class_createtime, 
+      class_endtime, class_numbers, class_type, 
+      class_fromteacher)
+    values (#{classId,jdbcType=INTEGER}, #{className,jdbcType=VARCHAR}, #{classCreatetime,jdbcType=VARCHAR}, 
+      #{classEndtime,jdbcType=VARCHAR}, #{classNumbers,jdbcType=INTEGER}, #{classType,jdbcType=INTEGER}, 
+      #{classFromteacher,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.thumbsup.dto.TClass" >
+    insert into t_class
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="classId != null" >
+        class_id,
+      </if>
+      <if test="className != null" >
+        class_name,
+      </if>
+      <if test="classCreatetime != null" >
+        class_createtime,
+      </if>
+      <if test="classEndtime != null" >
+        class_endtime,
+      </if>
+      <if test="classNumbers != null" >
+        class_numbers,
+      </if>
+      <if test="classType != null" >
+        class_type,
+      </if>
+      <if test="classFromteacher != null" >
+        class_fromteacher,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="classId != null" >
+        #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="className != null" >
+        #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="classCreatetime != null" >
+        #{classCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="classEndtime != null" >
+        #{classEndtime,jdbcType=VARCHAR},
+      </if>
+      <if test="classNumbers != null" >
+        #{classNumbers,jdbcType=INTEGER},
+      </if>
+      <if test="classType != null" >
+        #{classType,jdbcType=INTEGER},
+      </if>
+      <if test="classFromteacher != null" >
+        #{classFromteacher,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.thumbsup.dto.TClassExample" resultType="java.lang.Integer" >
+    select count(*) from t_class
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_class
+    <set >
+      <if test="record.classId != null" >
+        class_id = #{record.classId,jdbcType=INTEGER},
+      </if>
+      <if test="record.className != null" >
+        class_name = #{record.className,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classCreatetime != null" >
+        class_createtime = #{record.classCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classEndtime != null" >
+        class_endtime = #{record.classEndtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classNumbers != null" >
+        class_numbers = #{record.classNumbers,jdbcType=INTEGER},
+      </if>
+      <if test="record.classType != null" >
+        class_type = #{record.classType,jdbcType=INTEGER},
+      </if>
+      <if test="record.classFromteacher != null" >
+        class_fromteacher = #{record.classFromteacher,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_class
+    set class_id = #{record.classId,jdbcType=INTEGER},
+      class_name = #{record.className,jdbcType=VARCHAR},
+      class_createtime = #{record.classCreatetime,jdbcType=VARCHAR},
+      class_endtime = #{record.classEndtime,jdbcType=VARCHAR},
+      class_numbers = #{record.classNumbers,jdbcType=INTEGER},
+      class_type = #{record.classType,jdbcType=INTEGER},
+      class_fromteacher = #{record.classFromteacher,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.thumbsup.dto.TClass" >
+    update t_class
+    <set >
+      <if test="className != null" >
+        class_name = #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="classCreatetime != null" >
+        class_createtime = #{classCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="classEndtime != null" >
+        class_endtime = #{classEndtime,jdbcType=VARCHAR},
+      </if>
+      <if test="classNumbers != null" >
+        class_numbers = #{classNumbers,jdbcType=INTEGER},
+      </if>
+      <if test="classType != null" >
+        class_type = #{classType,jdbcType=INTEGER},
+      </if>
+      <if test="classFromteacher != null" >
+        class_fromteacher = #{classFromteacher,jdbcType=INTEGER},
+      </if>
+    </set>
+    where class_id = #{classId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.thumbsup.dto.TClass" >
+    update t_class
+    set class_name = #{className,jdbcType=VARCHAR},
+      class_createtime = #{classCreatetime,jdbcType=VARCHAR},
+      class_endtime = #{classEndtime,jdbcType=VARCHAR},
+      class_numbers = #{classNumbers,jdbcType=INTEGER},
+      class_type = #{classType,jdbcType=INTEGER},
+      class_fromteacher = #{classFromteacher,jdbcType=INTEGER}
+    where class_id = #{classId,jdbcType=INTEGER}
+  </update>
+</mapper>

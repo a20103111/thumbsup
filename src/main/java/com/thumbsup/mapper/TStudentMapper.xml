@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thumbsup.mapper.TStudentMapper" >
+  <resultMap id="BaseResultMap" type="com.thumbsup.dto.TStudent" >
+    <id column="student_id" property="studentId" jdbcType="INTEGER" />
+    <result column="student_name" property="studentName" jdbcType="VARCHAR" />
+    <result column="student_classid" property="studentClassid" jdbcType="INTEGER" />
+    <result column="student_createtime" property="studentCreatetime" jdbcType="VARCHAR" />
+    <result column="student_phone" property="studentPhone" jdbcType="VARCHAR" />
+    <result column="student_course" property="studentCourse" jdbcType="VARCHAR" />
+    <result column="student_fromteacher" property="studentFromteacher" jdbcType="INTEGER" />
+    <result column="student_account" property="studentAccount" jdbcType="VARCHAR" />
+    <result column="student_password" property="studentPassword" jdbcType="VARCHAR" />
+    <result column="student_isthumbs" property="studentIsthumbs" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    student_id, student_name, student_classid, student_createtime, student_phone, student_course, 
+    student_fromteacher, student_account, student_password, student_isthumbs
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.thumbsup.dto.TStudentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_student
+    where student_id = #{studentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_student
+    where student_id = #{studentId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.thumbsup.dto.TStudentExample" >
+    delete from t_student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.thumbsup.dto.TStudent" >
+    insert into t_student (student_id, student_name, student_classid, 
+      student_createtime, student_phone, student_course, 
+      student_fromteacher, student_account, student_password, 
+      student_isthumbs)
+    values (#{studentId,jdbcType=INTEGER}, #{studentName,jdbcType=VARCHAR}, #{studentClassid,jdbcType=INTEGER}, 
+      #{studentCreatetime,jdbcType=VARCHAR}, #{studentPhone,jdbcType=VARCHAR}, #{studentCourse,jdbcType=VARCHAR}, 
+      #{studentFromteacher,jdbcType=INTEGER}, #{studentAccount,jdbcType=VARCHAR}, #{studentPassword,jdbcType=VARCHAR}, 
+      #{studentIsthumbs,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.thumbsup.dto.TStudent" >
+    insert into t_student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="studentId != null" >
+        student_id,
+      </if>
+      <if test="studentName != null" >
+        student_name,
+      </if>
+      <if test="studentClassid != null" >
+        student_classid,
+      </if>
+      <if test="studentCreatetime != null" >
+        student_createtime,
+      </if>
+      <if test="studentPhone != null" >
+        student_phone,
+      </if>
+      <if test="studentCourse != null" >
+        student_course,
+      </if>
+      <if test="studentFromteacher != null" >
+        student_fromteacher,
+      </if>
+      <if test="studentAccount != null" >
+        student_account,
+      </if>
+      <if test="studentPassword != null" >
+        student_password,
+      </if>
+      <if test="studentIsthumbs != null" >
+        student_isthumbs,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="studentId != null" >
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="studentName != null" >
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentClassid != null" >
+        #{studentClassid,jdbcType=INTEGER},
+      </if>
+      <if test="studentCreatetime != null" >
+        #{studentCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="studentPhone != null" >
+        #{studentPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="studentCourse != null" >
+        #{studentCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="studentFromteacher != null" >
+        #{studentFromteacher,jdbcType=INTEGER},
+      </if>
+      <if test="studentAccount != null" >
+        #{studentAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="studentPassword != null" >
+        #{studentPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="studentIsthumbs != null" >
+        #{studentIsthumbs,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.thumbsup.dto.TStudentExample" resultType="java.lang.Integer" >
+    select count(*) from t_student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_student
+    <set >
+      <if test="record.studentId != null" >
+        student_id = #{record.studentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentName != null" >
+        student_name = #{record.studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentClassid != null" >
+        student_classid = #{record.studentClassid,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentCreatetime != null" >
+        student_createtime = #{record.studentCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentPhone != null" >
+        student_phone = #{record.studentPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentCourse != null" >
+        student_course = #{record.studentCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentFromteacher != null" >
+        student_fromteacher = #{record.studentFromteacher,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentAccount != null" >
+        student_account = #{record.studentAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentPassword != null" >
+        student_password = #{record.studentPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentIsthumbs != null" >
+        student_isthumbs = #{record.studentIsthumbs,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_student
+    set student_id = #{record.studentId,jdbcType=INTEGER},
+      student_name = #{record.studentName,jdbcType=VARCHAR},
+      student_classid = #{record.studentClassid,jdbcType=INTEGER},
+      student_createtime = #{record.studentCreatetime,jdbcType=VARCHAR},
+      student_phone = #{record.studentPhone,jdbcType=VARCHAR},
+      student_course = #{record.studentCourse,jdbcType=VARCHAR},
+      student_fromteacher = #{record.studentFromteacher,jdbcType=INTEGER},
+      student_account = #{record.studentAccount,jdbcType=VARCHAR},
+      student_password = #{record.studentPassword,jdbcType=VARCHAR},
+      student_isthumbs = #{record.studentIsthumbs,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.thumbsup.dto.TStudent" >
+    update t_student
+    <set >
+      <if test="studentName != null" >
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentClassid != null" >
+        student_classid = #{studentClassid,jdbcType=INTEGER},
+      </if>
+      <if test="studentCreatetime != null" >
+        student_createtime = #{studentCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="studentPhone != null" >
+        student_phone = #{studentPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="studentCourse != null" >
+        student_course = #{studentCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="studentFromteacher != null" >
+        student_fromteacher = #{studentFromteacher,jdbcType=INTEGER},
+      </if>
+      <if test="studentAccount != null" >
+        student_account = #{studentAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="studentPassword != null" >
+        student_password = #{studentPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="studentIsthumbs != null" >
+        student_isthumbs = #{studentIsthumbs,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where student_id = #{studentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.thumbsup.dto.TStudent" >
+    update t_student
+    set student_name = #{studentName,jdbcType=VARCHAR},
+      student_classid = #{studentClassid,jdbcType=INTEGER},
+      student_createtime = #{studentCreatetime,jdbcType=VARCHAR},
+      student_phone = #{studentPhone,jdbcType=VARCHAR},
+      student_course = #{studentCourse,jdbcType=VARCHAR},
+      student_fromteacher = #{studentFromteacher,jdbcType=INTEGER},
+      student_account = #{studentAccount,jdbcType=VARCHAR},
+      student_password = #{studentPassword,jdbcType=VARCHAR},
+      student_isthumbs = #{studentIsthumbs,jdbcType=VARCHAR}
+    where student_id = #{studentId,jdbcType=INTEGER}
+  </update>
+</mapper>
